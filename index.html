@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090b18" />
+    <meta
+      name="description"
+      content="A neon arcade number guessing game. Pick a level, trust your instincts, and find the secret number."
+    />
+    <title>Number Nova — Guess the secret number</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <main class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Number Nova home">
+          <span class="brand-icon" aria-hidden="true">✳</span>
+          <span>NUMBER<span class="brand-light">NOVA</span></span>
+        </a>
+        <div class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          ARCADE MODE
+        </div>
+      </header>
+
+      <section class="game-layout" aria-labelledby="game-title">
+        <div class="intro">
+          <p class="eyebrow"><span></span> YOUR NEXT OBSESSION</p>
+          <h1 id="game-title">Think it.<br /><span>Find it.</span></h1>
+          <p class="intro-copy">
+            There’s a number hiding in the cosmos. Follow the clues, trust your
+            gut, and bring it home.
+          </p>
+
+          <div class="level-picker">
+            <p class="section-label">CHOOSE YOUR ORBIT</p>
+            <div class="difficulty-options" role="group" aria-label="Choose difficulty">
+              <button class="difficulty-button selected" type="button" data-mode="easy" aria-pressed="true">
+                <span class="level-icon" aria-hidden="true">☾</span>
+                <span><strong>Stargazer</strong><small>1 — 50</small></span>
+              </button>
+              <button class="difficulty-button" type="button" data-mode="classic" aria-pressed="false">
+                <span class="level-icon" aria-hidden="true">✦</span>
+                <span><strong>Explorer</strong><small>1 — 100</small></span>
+              </button>
+              <button class="difficulty-button" type="button" data-mode="expert" aria-pressed="false">
+                <span class="level-icon" aria-hidden="true">⌁</span>
+                <span><strong>Supernova</strong><small>1 — 500</small></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="personal-best">
+            <span class="best-icon" aria-hidden="true">✧</span>
+            <span class="best-label">PERSONAL BEST</span>
+            <strong id="best-score">—</strong>
+            <span class="best-unit">GUESSES</span>
+          </div>
+        </div>
+
+        <div class="game-card">
+          <div class="card-topline">
+            <span class="round-label"><span class="round-dot"></span> ROUND <span id="round-number">01</span></span>
+            <button class="icon-button" id="new-game-button" type="button" aria-label="Start a new game" title="New game">
+              ↻
+            </button>
+          </div>
+
+          <div class="orbit-display" aria-label="Secret number display">
+            <div class="orbit orbit-outer" aria-hidden="true"></div>
+            <div class="orbit orbit-inner" aria-hidden="true"></div>
+            <div class="number-orb" id="number-orb" aria-live="polite">?</div>
+            <span class="orbit-spark spark-one" aria-hidden="true">✦</span>
+            <span class="orbit-spark spark-two" aria-hidden="true">✧</span>
+            <span class="orbit-spark spark-three" aria-hidden="true">·</span>
+          </div>
+
+          <p class="game-prompt" id="game-prompt">A secret number is waiting...</p>
+          <p class="game-subprompt" id="game-subprompt">
+            Pick a number between <strong id="range-label">1 and 50</strong>
+          </p>
+
+          <form id="guess-form" class="guess-form" novalidate>
+            <label class="input-label" for="guess-input">YOUR GUESS</label>
+            <div class="input-row">
+              <input
+                id="guess-input"
+                name="guess"
+                type="number"
+                inputmode="numeric"
+                min="1"
+                max="50"
+                placeholder="e.g. 24"
+                autocomplete="off"
+                aria-describedby="feedback-message"
+              />
+              <button class="guess-button" id="guess-button" type="submit">
+                <span>Lock it in</span><span aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="feedback" id="feedback-message" role="status" aria-live="polite">
+            <span class="feedback-mark" aria-hidden="true">✳</span>
+            <span>Make your first guess to get a clue.</span>
+          </div>
+
+          <div class="attempts-section">
+            <div class="attempts-heading">
+              <span class="section-label">GUESSES LEFT</span>
+              <span class="attempts-count"><strong id="attempts-left">10</strong><span> / <span id="attempts-total">10</span></span></span>
+            </div>
+            <div class="attempts-track" id="attempts-track" role="progressbar" aria-label="Guesses remaining" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10">
+              <span class="attempts-fill" id="attempts-fill"></span>
+            </div>
+          </div>
+
+          <div class="history-section">
+            <div class="history-heading">
+              <span class="section-label">YOUR TRAIL</span>
+              <span class="history-count" id="history-count">0 GUESSES</span>
+            </div>
+            <div class="guess-history" id="guess-history" aria-label="Previous guesses">
+              <span class="history-empty">Your guesses will appear here</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>MADE FOR CURIOUS MINDS</span>
+        <span class="footer-star" aria-hidden="true">✳</span>
+        <span>ONE GUESS AT A TIME</span>
+      </footer>
+    </main>
+  </body>
+</html>
